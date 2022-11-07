@@ -41,6 +41,10 @@ public class CreateOrderSaga implements SimpleSaga<CreateOrderSagaData> {
     data.setRejectionReason(RejectionReason.INSUFFICIENT_CREDIT);
   }
 
+  @Override
+  public String getSagaType() {
+    return "create-order-saga";
+  }
 
   @Override
   public SagaDefinition<CreateOrderSagaData> getSagaDefinition() {
