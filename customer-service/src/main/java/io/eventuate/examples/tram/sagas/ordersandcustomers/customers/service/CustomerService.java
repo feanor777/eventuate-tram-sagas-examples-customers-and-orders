@@ -2,15 +2,11 @@ package io.eventuate.examples.tram.sagas.ordersandcustomers.customers.service;
 
 import io.eventuate.examples.tram.sagas.ordersandcustomers.commondomain.Money;
 import io.eventuate.examples.tram.sagas.ordersandcustomers.customers.domain.Customer;
-import io.eventuate.examples.tram.sagas.ordersandcustomers.customers.domain.CustomerBlackListException;
 import io.eventuate.examples.tram.sagas.ordersandcustomers.customers.domain.CustomerCreditLimitExceededException;
 import io.eventuate.examples.tram.sagas.ordersandcustomers.customers.domain.CustomerNotFoundException;
 import io.eventuate.examples.tram.sagas.ordersandcustomers.customers.domain.CustomerRepository;
 
 import javax.transaction.Transactional;
-
-import static io.eventuate.tram.commands.consumer.CommandHandlerReplyBuilder.withFailure;
-import static io.eventuate.tram.commands.consumer.CommandHandlerReplyBuilder.withSuccess;
 
 public class CustomerService {
 
@@ -28,9 +24,6 @@ public class CustomerService {
 
   public void reserveCredit(long customerId, long orderId, Money orderTotal) throws CustomerCreditLimitExceededException {
     Customer customer = customerRepository.findById(customerId).orElseThrow(CustomerNotFoundException::new);
-    if("Jane Doe".equals(customer.getName())) {
-      throw new CustomerBlackListException();
-    }
     customer.reserveCredit(orderId, orderTotal);
   }
 }
