@@ -10,10 +10,14 @@ import io.eventuate.examples.tram.sagas.ordersandcustomers.orders.domain.Order;
 import io.eventuate.tram.commands.consumer.CommandWithDestination;
 import io.eventuate.tram.sagas.orchestration.SagaDefinition;
 import io.eventuate.tram.sagas.simpledsl.SimpleSaga;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static io.eventuate.tram.commands.consumer.CommandWithDestinationBuilder.send;
 
 public class CreateOrderSaga implements SimpleSaga<CreateOrderSagaData> {
+
+  private Logger logger = LoggerFactory.getLogger(getClass());
 
   private OrderService orderService;
 
@@ -66,6 +70,7 @@ public class CreateOrderSaga implements SimpleSaga<CreateOrderSagaData> {
   }
 
   private void approve(CreateOrderSagaData data) {
+    logger.info("--- Approved! ---");
     orderService.approveOrder(data.getOrderId());
   }
 

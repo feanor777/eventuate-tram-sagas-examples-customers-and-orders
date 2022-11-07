@@ -1,6 +1,8 @@
 package io.eventuate.examples.tram.sagas.ordersandcustomers.orders.web;
 
 import io.eventuate.examples.tram.sagas.ordersandcustomers.orders.api.messaging.common.OrderDetails;
+import io.eventuate.examples.tram.sagas.ordersandcustomers.orders.api.web.UpdateOrderRequest;
+import io.eventuate.examples.tram.sagas.ordersandcustomers.orders.api.web.UpdateOrderResponse;
 import io.eventuate.examples.tram.sagas.ordersandcustomers.orders.domain.Order;
 import io.eventuate.examples.tram.sagas.ordersandcustomers.orders.domain.OrderRepository;
 import io.eventuate.examples.tram.sagas.ordersandcustomers.orders.service.OrderSagaService;
@@ -31,6 +33,12 @@ public class OrderController {
   public CreateOrderResponse createOrder(@RequestBody CreateOrderRequest createOrderRequest) {
     Order order = orderSagaService.createOrder(new OrderDetails(createOrderRequest.getCustomerId(), createOrderRequest.getOrderTotal()));
     return new CreateOrderResponse(order.getId());
+  }
+
+  @RequestMapping(value = "/orders/{orderId}", method = RequestMethod.PUT)
+  public UpdateOrderResponse updateOrder(@PathVariable Long orderId, @RequestBody UpdateOrderRequest updateOrderRequest) {
+    Order order = orderSagaService.updateOrder(new OrderDetails(updateOrderRequest.getCustomerId(), updateOrderRequest.getOrderTotal()), orderId);
+    return new UpdateOrderResponse(order.getId());
   }
 
   @RequestMapping(value="/orders/{orderId}", method= RequestMethod.GET)
