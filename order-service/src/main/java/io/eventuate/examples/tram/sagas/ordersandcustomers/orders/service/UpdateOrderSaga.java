@@ -28,7 +28,7 @@ public class UpdateOrderSaga implements SimpleSaga<UpdateOrderSagaData> {
 
   @Override
   public String getSagaType() {
-    return "create-order-saga";
+    return "update-order-saga";
   }
 
   @Override
