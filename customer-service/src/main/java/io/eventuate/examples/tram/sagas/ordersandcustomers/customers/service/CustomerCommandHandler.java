@@ -47,7 +47,8 @@ public class CustomerCommandHandler {
   }
 
   public Message updateCredit(CommandMessage<UpdateCreditCommand> cm) {
-	  logger.info("--- Received update credit command {}", cm.getCommand());
+    UpdateCreditCommand command = cm.getCommand();
+    logger.info("--- Received update credit command {}", command.getCreateDateTime());
       return withSuccess(new CustomerCreditReserved());
   }
 

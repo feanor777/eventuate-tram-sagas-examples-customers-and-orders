@@ -3,10 +3,13 @@ package io.eventuate.examples.tram.sagas.ordersandcustomers.customers.api.messag
 import io.eventuate.examples.tram.sagas.ordersandcustomers.commondomain.Money;
 import io.eventuate.tram.commands.common.Command;
 
+import java.time.LocalDateTime;
+
 public class UpdateCreditCommand implements Command {
   private Long orderId;
   private Money orderTotal;
   private long customerId;
+  private LocalDateTime createDateTime;
 
   public UpdateCreditCommand() {
   }
@@ -15,6 +18,7 @@ public class UpdateCreditCommand implements Command {
     this.customerId = customerId;
     this.orderId = orderId;
     this.orderTotal = orderTotal;
+    this.createDateTime = LocalDateTime.now();
   }
 
   public Money getOrderTotal() {
@@ -43,4 +47,7 @@ public class UpdateCreditCommand implements Command {
     this.customerId = customerId;
   }
 
+  public LocalDateTime getCreateDateTime() {
+    return createDateTime;
+  }
 }
